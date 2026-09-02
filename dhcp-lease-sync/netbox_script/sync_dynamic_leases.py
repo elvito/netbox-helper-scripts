@@ -171,7 +171,7 @@ class SyncDynamicLeases(Script):
         mac = self.normalize_mac(lease["hardwareAddress"])
         prefix = self.get_matching_prefix(lease["address"])
         address = f'{lease["address"]}/{prefix.prefix.prefixlen}'
-        hostname = lease.get("hostName", "")
+        hostname = lease.get("hostName") or ""
 
         self.log_info(
             f"CREATE {address} (mac={mac}, host={hostname}, vrf={prefix.vrf})"
@@ -194,7 +194,7 @@ class SyncDynamicLeases(Script):
         mac = self.normalize_mac(lease["hardwareAddress"])
         prefix = self.get_matching_prefix(lease["address"])
         new_address = f'{lease["address"]}/{prefix.prefix.prefixlen}'
-        new_hostname = lease.get("hostName", "")
+        new_hostname = lease.get("hostName") or ""
 
         changed = False
         if str(ip.address) != new_address:
